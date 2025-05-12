@@ -60,7 +60,6 @@ public class FilmController {
                 throw new ValidationException("Фильм с данным id не найден.");
             }
         }
-
         return film;
     }
 
