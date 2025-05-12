@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
 
-import java.time.Duration;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -14,12 +13,12 @@ import static org.junit.jupiter.api.Assertions.*;
 class FilmControllerTest {
     FilmController filmController = new FilmController();
 
-    Film film = new Film(1L, "фильм1", "Описание фильма1", LocalDate.of(1995, 12, 13), Duration.ofHours(2));
+    Film film = new Film(1L, "фильм1", "Описание фильма1", LocalDate.of(1995, 12, 13), 100);
 
     @Test
     void getFilms() {  // вывод фильмов
-        Film film2 = new Film(2L, "фильм2", "Описание фильма2", LocalDate.of(1995, 12, 13), Duration.ofHours(2));
-        Film film3 = new Film(3L, "фильм3", "Описание фильма3", LocalDate.of(1995, 12, 13), Duration.ofHours(2));
+        Film film2 = new Film(2L, "фильм2", "Описание фильма2", LocalDate.of(1995, 12, 13), 100);
+        Film film3 = new Film(3L, "фильм3", "Описание фильма3", LocalDate.of(1995, 12, 13), 120);
 
         filmController.saveFilm(film);
         filmController.saveFilm(film2);
@@ -47,7 +46,7 @@ class FilmControllerTest {
         assertEquals(film.toString(), film1.toString(), "toString() фильмов не совпадает");
         assertEquals(film.hashCode(), film1.hashCode(), "hashCode() фильмов не совпадает");
 
-        Film film2 = new Film(1L, "фильм2", "Описание фильма2", LocalDate.of(1995, 12, 13), Duration.ofHours(2));
+        Film film2 = new Film(1L, "фильм2", "Описание фильма2", LocalDate.of(1995, 12, 13), 120);
 
         filmController.updateFilm(film2);
 
@@ -139,16 +138,16 @@ class FilmControllerTest {
 
     @Test
     void validateDurationFilm() { // проверка валидации продолжительности фильма при сохранении и перезаписи.
-        film.setDuration(Duration.ofMillis(-1)); // ставим продолжительность фильма -1 минута
+        film.setDuration(-1); // ставим продолжительность фильма -1 минута
         // для прохождения валидации продолжительность фильма не должна быть отрицательным числолм
         ValidationException exception = assertThrows(ValidationException.class, () -> filmController.saveFilm(film));
 
         assertEquals("Продолжительность фильма не может быть отрицательным числом.", exception.getMessage()); // проверка исключения при сохранении фильма
 
-        film.setDuration(Duration.ofMillis(0));// изменяем продолжительность фильма на 0 минут для валидации и сохраняем
+        film.setDuration(0);// изменяем продолжительность фильма на 0 минут для валидации и сохраняем
         filmController.saveFilm(film); // при сохранении автоматом меняется id
 
-        film.setDuration(Duration.ofMillis(-1)); // ставим продолжительность фильма -1 минута и обновляем
+        film.setDuration(-1); // ставим продолжительность фильма -1 минута и обновляем
         ValidationException exception1 = assertThrows(ValidationException.class, () -> filmController.updateFilm(film));
 
         assertEquals("Продолжительность фильма не может быть отрицательным числом.", exception1.getMessage()); // проверка исключения при изменении фильма
