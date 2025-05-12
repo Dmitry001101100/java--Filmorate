@@ -24,7 +24,7 @@ class UserControllerTest {
         userController.saveUser(user2);
         userController.saveUser(user3);
 
-        List<User> users = userController.getUser(); /// проработать сравнение через этот список
+        List<User> users = userController.getUser();
 
         assertEquals(user.toString(), users.getFirst().toString(), "toString() user не совпадает");
         assertEquals(user.hashCode(), users.getFirst().hashCode(), "hashCode() фильмов не совпадает");

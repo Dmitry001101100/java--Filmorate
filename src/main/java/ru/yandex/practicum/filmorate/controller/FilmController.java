@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
+
 import java.time.*;
 import java.util.*;
 
@@ -28,7 +29,7 @@ public class FilmController {
         return null;
     }
 
-    public void clearFilms(){
+    public void clearFilms() {
         films.clear();
         nextId = 0L;
     }
