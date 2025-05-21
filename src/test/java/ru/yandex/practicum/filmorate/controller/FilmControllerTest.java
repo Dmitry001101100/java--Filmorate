@@ -1,6 +1,7 @@
 package ru.yandex.practicum.filmorate.controller;
 
 import org.junit.jupiter.api.Test;
+import ru.yandex.practicum.filmorate.exception.NotFoundException;
 import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
 
@@ -39,7 +40,7 @@ class FilmControllerTest {
     }
 
     @Test
-    void validateUpdate() { // валидативное обновление фильма
+    void validateUpdate() throws NotFoundException { // валидативное обновление фильма
         filmController.saveFilm(film); // сохраняем фильм
 
         Film film1 = filmController.getFilm(1L);
@@ -58,7 +59,7 @@ class FilmControllerTest {
     }
 
     @Test
-    void saveValidate() { // сохранение фильма без нарушений валидации
+    void saveValidate() throws NotFoundException { // сохранение фильма без нарушений валидации
 
         filmController.saveFilm(film); // при сохранении автоматом меняется id
 
@@ -85,7 +86,7 @@ class FilmControllerTest {
     }
 
     @Test
-    void validateDescriptionFilm() { // проверка валидации описания фильма при сохранении и перезаписи.
+    void validateDescriptionFilm() throws NotFoundException { // проверка валидации описания фильма при сохранении и перезаписи.
         String noValidDesc = "12121212121212121212" + // 10 строк по 20 символов и одна строка с 1 символом(суммарно 201 символ)
                 "12121212121212121212" +
                 "12121212121212121212" +
