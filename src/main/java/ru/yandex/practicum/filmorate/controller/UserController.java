@@ -1,6 +1,5 @@
 package ru.yandex.practicum.filmorate.controller;
 
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -55,7 +54,6 @@ public class UserController {
         return user;
     }
 
-
     @PutMapping
     public User updateUser(@RequestBody User user) {
         log.info("изменение пользователя пользователя : {}", user);
@@ -105,7 +103,6 @@ public class UserController {
             log.error("Ошибка даты рождения: {}", user.getBirthday());
             throw new ValidationException(400, "Дата рождения не может быть в будущем."); // дата рождения в будущем — некорректно
         }
-
     }
 
 }
